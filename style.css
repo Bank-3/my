@@ -1,0 +1,46 @@
+body {
+    margin:5px;
+}
+.carousel-item img {
+    width:100%;
+    height:200px;
+    object-fit:cover;
+}
+
+.form-control:focus{
+ box-shadow:   0 0 0 1px green !important;
+}
+.form-floating>label {
+    color:green !important;
+    font-weight:500;
+}
+
+.form-check-input:checked{
+    background-color:green;   
+}
+.form-check-label img {
+     width: 100px;
+     height: 100%;
+     object-fit: inherit;
+     object-position: left;
+}
+
+.form-floating>.form-control{
+    border-radius:5px;
+}
+
+#timer{
+    color: red;
+    font-size: 20px;
+    padding: 5px;
+}
+
+
+#timeid{
+    justify-content: center;
+    /* display: flex; */
+}
+#optionsContainer a {
+    text-decoration: none;
+  }
+  

